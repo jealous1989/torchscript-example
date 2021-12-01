@@ -30,8 +30,11 @@ elseif(WIN32)
   message(FATAL_ERROR "Windows is not supported")
 endif()
 
+find_library(TORCH_PYTHON_LIBRARY torch_python PATHS "${TORCH_INSTALL_PREFIX}/lib")
+
 target_include_directories(
   ${LIB_NAME}
   PUBLIC ${TORCH_INCLUDE_DIRS}
   PUBLIC ${PYTHON_INCLUDE_DIRS})
-target_link_libraries(${LIB_NAME} PUBLIC ${TORCH_LIBRARIES})
+  
+target_link_libraries(${LIB_NAME} PUBLIC ${TORCH_LIBRARIES} ${TORCH_PYTHON_LIBRARY})
